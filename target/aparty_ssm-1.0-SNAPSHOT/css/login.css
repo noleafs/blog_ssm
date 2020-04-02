@@ -1,9 +1,0 @@
-.error {
-	color: red !important;
-}
-@media (max-width: 520px) {
-	.lowin-brand {
-		display: none;
-	}
-	
-}
