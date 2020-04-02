@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+	   http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 扫描controller的注解，别的不扫描 -->
+    <context:component-scan base-package="com.hf.controller"></context:component-scan>
+
+
+    <!-- 开启对SpringMVC注解的支持 -->
+    <mvc:annotation-driven>
+        <!-- 消息转换器 -->
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+<!--                &lt;!&ndash;解决乱码&ndash;&gt;-->
+<!--                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>-->
+                <constructor-arg index="0" value="utf-8"></constructor-arg>
+                <!--解决返回大量响应头 Accept-Charset-->
+                <property name="writeAcceptCharset" value="false" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <mvc:resources location="/img/" mapping="/img/**" />
+    <mvc:resources location="/css/" mapping="/css/**" />
+    <mvc:resources location="/js/" mapping="/js/**" />
+    <mvc:resources location="/lib/" mapping="/lib/**" />
+    <mvc:resources location="/fonts/" mapping="/fonts/**" />
+    <mvc:resources location="/images/" mapping="/images/**" />
+    <mvc:resources location="/plugins/" mapping="/plugins/**" />
+
+
+    <!--配置文件解析器对象 要求id名称必须是multipartResolver-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--配置文件上传最大为多少  单位是字节-->
+        <property name="maxUploadSize" value="10485760"></property>
+    </bean>
+
+
+
+    <!--
+        支持AOP的注解支持，AOP底层使用代理技术
+        JDK动态代理，要求必须有接口
+        cglib代理，生成子类对象，proxy-target-class="true" 默认使用cglib的方式
+    -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!-- 配制校验器 -->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+    </bean>
+
+    <!--注册校验器-->
+    <mvc:annotation-driven validator="validator" />
+
+
+    <!--注册拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--对所有请求拦截-->
+            <mvc:mapping path="/**"/>
+            <bean class="com.hf.common.interceptor.RegisterInterceptor"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <!--只对包含admin的url的请求拦截-->
+            <mvc:mapping path="/**/admin/**"/>
+            <bean class="com.hf.common.interceptor.JurisdictionInterceptor"/>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
+
+</beans>

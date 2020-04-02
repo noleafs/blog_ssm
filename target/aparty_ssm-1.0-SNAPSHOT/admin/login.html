@@ -1,0 +1,158 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Login - srtdash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
+    <link rel="stylesheet" href="../css/admin/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/admin/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/admin/themify-icons.css">
+    <link rel="stylesheet" href="../css/admin/metisMenu.css">
+    <link rel="stylesheet" href="../css/admin/owl.carousel.min.css">
+    <link rel="stylesheet" href="../css/admin/slicknav.min.css">
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <!-- others css -->
+    <link rel="stylesheet" href="../css/admin/typography.css">
+    <link rel="stylesheet" href="../css/admin/default-css.css">
+    <link rel="stylesheet" href="../css/admin/styles.css">
+    <link rel="stylesheet" href="../css/admin/responsive.css">
+    <!-- modernizr css -->
+    <script src="../js/admin/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- login area start -->
+    <div class="login-area login-s2">
+        <div class="container">
+            <div class="login-box ptb--100">
+                <form class="login">
+                    <div class="login-form-head">
+                        <h4>登陆</h4>
+                        <p>您好 请登录</p>
+                    </div>
+                    <div class="login-form-body">
+                        <div class="form-gp">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" name="emails" id="exampleInputEmail1">
+                            <i class="ti-email"></i>
+                        </div>
+                        <div class="form-gp">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" name="passwords" id="exampleInputPassword1">
+                            <i class="ti-lock"></i>
+                        </div>
+
+                        <div class="icode " style="margin-bottom: 10px;">
+
+                        </div>
+
+                        <input type="hidden" class="hide" name="code">
+
+                        <div class="submit-btn-area">
+                            <button id="form_submit" type="submit">Submit <i class="ti-arrow-right"></i></button>
+                        </div>
+                        <div class="form-footer text-center mt-5">
+                            <p class="text-muted">Don't have an account? <a href="register.html">Sign up</a></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- login area end -->
+
+    <!-- jquery latest version -->
+    <script src="../js/jquery.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="../js/admin/popper.min.js"></script>
+    <script src="../js/admin/bootstrap.min.js"></script>
+    <script src="../js/admin/owl.carousel.min.js"></script>
+    <script src="../js/admin/metisMenu.min.js"></script>
+    <script src="../js/admin/jquery.slimscroll.min.js"></script>
+    <script src="../js/admin/jquery.slicknav.min.js"></script>
+    
+    <!-- others plugins -->
+    <script src="../js/admin/plugins.js"></script>
+    <script src="../js/admin/scripts.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="../js/uuid.js"></script>
+    <script>
+        function login(){
+
+            $(".login").validate({
+                debug: true, //取消submit的默认提交功能
+                focusCleanup:true,//当输入框获取焦点时,清除后面的错误信息
+                onfocusout : function(element) {//当输入框失去焦点时,进行校验
+                    $(element).valid();
+                },
+                // 当校验全部通过会调用此方法
+                submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form
+
+                    $.post('/user/login', $(".login").serialize(), function (data, textStatus, xhr) {
+                        if(xhr.status == 200){
+                            alert("登录成功");
+                            location.href = "index.html"
+
+                        }
+                    }).error(function(data, textStatus, xhr){
+                        let i = JSON.parse(data.responseText);
+                        if(i.error >= 5){
+                            uuid = Math.uuid(10);
+                            $(".hide").val(uuid);
+                            $(".icode").html('<input type="text" autocomplete="off" name="vcode" id="vcode " style="height: 39px;background-color: var(--color-grey);border:none;border-bottom: 1px solid #e6e6e6;color: var(--color-dark);padding: 15px 20px;margin-top: 1px;outline: none;"> <img src="'+'/user/checkcode?code='+uuid+'" height="39px" onclick="check(this)" alt="验证码" style="vertical-align:bottom">')
+                        }
+                        alert(i.msg);
+                    })
+
+                },
+                rules : {
+                    emails : {
+                        required : true,
+                        email : true
+                    },
+                    passwords : {
+                        required : true,
+                        minlength : 6
+                    },
+
+
+                },
+                messages : {
+                    passwords : {
+                        required : "",
+                        minlength : ""
+                    },
+                    emails : {
+                        required : "",
+                        email: ""
+                    }
+                }
+            });
+        }
+
+        function check(img){
+            uuid = Math.uuid(10);
+            $(".hide").val(uuid);
+            img.src = '/user/checkcode?code='+uuid;
+        }
+
+
+        $(function () {
+            login();
+        })
+    </script>
+</body>
+
+</html>

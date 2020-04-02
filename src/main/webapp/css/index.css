@@ -1,0 +1,375 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+header a:hover {
+    color: black !important;
+}
+
+.inavbar-brand {
+    height: 40px;
+}
+
+.inavbar-default {
+    border-color: #f8f8f8;
+    color: #FFFFFF;
+    /* background-color: #FFFFFF; */
+}
+
+/* logo */
+.inavbar-header {
+    padding-right: 10px;
+    margin-top: 4px;
+}
+
+.container {
+    margin: 10px auto;
+}
+
+.container .body {
+    padding: 0px 10px;
+    position: relative;
+    padding-left: 220px;
+}
+
+.nav-second {
+    position: relative;
+    width: 210px;
+    float: left;
+}
+
+.logo_a {
+    font-size: 22px;
+    color: black;
+}
+
+/* 中间部分 */
+.main {
+    display: flex;
+    width: 52%;
+    margin: 0px auto;
+    flex-wrap: wrap;
+    /* 溢出则换行 */
+    margin-top: 80px;
+}
+
+.l {
+    flex: 70%;
+    /* border: 1px solid blue; */
+    margin-right: 25px;
+    overflow: hidden;
+    /* min-width: 735px; */
+}
+
+.r {
+    flex: 25.00%;
+    /* border: 1px solid blue; */
+    /* min-width: 265px; */
+}
+.iimg {
+    display: none !important;
+}
+
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none;
+}
+
+.carousel-control.left {
+    background-image: none !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}
+
+.carousel-control.right {
+    left: auto;
+    right: 0;
+    background-image: none !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+}
+
+.media {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 1px 0 8px 0;
+}
+
+.imedia a {
+    color: black;
+    cursor: pointer;
+}
+
+.imedia a:hover {
+    color: black;
+}
+
+.imedia a:link {
+    color: black;
+}
+
+.imedia p {
+    margin-bottom: 5px;
+}
+
+.imedia i {
+    color: black;
+    font-size: 10px;
+    margin-right: 3px;
+}
+
+.imedia .span_b {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+/* 控制轮播图大小 */
+.carousel {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+/* 调节三条扛按钮的位置 */
+.icollapsed {
+    margin-top: 2px !important;
+    margin-bottom: 0px !important;
+
+}
+
+/* 设置导航栏上下边距 */
+.icontainer-fluid {
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+
+/* 面板头 */
+.ipanel-heading {
+    background-color: white !important;
+}
+
+/* 热门标签 */
+.ipanel-body span {
+    margin: 0 0 8px 8px;
+    display: inline-block;
+    text-align: center;
+    padding: 8px;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+/* 关于站长 */
+.iregard {
+    padding-bottom: 3px !important;
+    padding-top: 10px !important;
+}
+
+.iregard a {
+    display: inline-block;
+    /* border: 1px solid red; */
+
+}
+
+.imessage {
+    text-align: center;
+    margin-left: 15%;
+}
+
+.imessage img {
+    height: 45px;
+}
+
+.imessage2 {
+    text-align: center;
+    margin-left: 15%;
+}
+
+.imessage2 img {
+    margin-top: 15px;
+    margin-bottom: 7px;
+    height: 30px;
+}
+
+/* 热门文章 */
+.ihot li {
+    list-style-type: none;
+    /* border: 1px solid red; */
+    height: 30px;
+    overflow: hidden;
+    line-height: 30px;
+}
+.ihot li a{
+    color: black !important;
+}
+.ihot a:link{
+    color: black;
+}
+
+.idropdown-menu span {
+    color: rgb(0, 129, 198);
+    margin-right: 10px;
+}
+
+/*右边悬浮*/
+.back-to-the-top {
+    position: fixed;
+    bottom: 6em;
+    right: 100px;
+    height: 100px;
+    width: 50px;
+    /*text-align: center;*/
+    /*border: 1px solid red;*/
+}
+
+.back-to-the-top .glyphicon-chevron-up {
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    border: 2px solid rgb(167, 176, 184);
+    background-color: rgb(167, 176, 184);
+    top: auto;
+    cursor: pointer;
+    color: #fff;
+    margin-bottom: 5px;
+    display: none;
+}
+
+.back-to-the-top .glyphicon-chevron-down{
+    font-size: 18px;
+    line-height: 36px;
+    text-align: center;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    border: 2px solid rgb(167, 176, 184);
+    background-color: rgb(167, 176, 184);
+    top: auto;
+    cursor: pointer;
+    color: #fff;
+}
+
+.dback-to-the-top .glyphicon-home {
+    line-height: 36px;
+    text-align: center;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    border: 2px solid rgb(167, 176, 184);
+    background-color: rgb(167, 176, 184);
+    top: auto;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+
+
+/* 尾部 */
+.itail {
+    border-top: 1px solid #f0f0f0;
+    text-align: center;
+    padding: 6px 0 6px 0;
+}
+.dropdown-menu span{
+    cursor: pointer;
+    margin-right: 2px;
+}
+.sele {
+    background-color: rgb(167, 176, 184) !important;
+}
+/* 在屏幕尺寸小于1313时执行 */
+@media (max-width: 1400px) {
+    .main {
+        width: 75%;
+    }
+    .cz button {
+        display: none;
+    }
+}
+
+
+@media (max-width: 1000px) {
+    .logo_a {
+        display: none;
+    }
+    .glyphicon-bookmark,.glyphicon-pencil {
+        display: none !important;
+    }
+}
+
+
+ /*在屏幕尺寸小于900时执行*/
+@media (max-width: 900px) {
+    .r {
+        display: none;
+    }
+    .l {
+        margin-right: 0;
+    }
+    .per-main {
+        width: 65% !important;
+    }
+    .total-count,.total-pages,.jump-button,.jump-text {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .container .body {
+        padding: 0px;
+    }
+
+    .logo_a {
+        display: inline-block;
+    }
+
+
+}
+
+/* 会执行多个媒体查询 */
+@media (max-width: 620px) {
+    .main {
+        width: 95%;
+    }
+
+    .l {
+        width: 100%;
+    }
+
+    /*悬浮按钮*/
+    .back-to-the-top{
+        right: 10px;
+    }
+
+    /*个人主页*/
+    .per-main {
+        width: 99% !important;
+        overflow: hidden;
+        /*border: 1px solid red;*/
+        padding: 20px;
+    }
+    #code {
+        width: 33% !important;
+    }
+    #username,#email,#rawpassword,#password {
+        width: 50% !important;
+    }
+
+
+}

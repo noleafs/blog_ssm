@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <!-- 强制让文档的宽度与设备的宽度保持1:1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="java,java博客,java学习,个人博客">
+    <meta name="description" content="java,java博客,java学习,个人博客">
+
+    <link rel="stylesheet" type="text/css" href="css/sui.nav.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/personal.css">
+    <link rel="stylesheet" href="css/paging.css">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap-hover-dropdown/2.0.10/bootstrap-hover-dropdown.min.js"></script>
+    <script src="js/sui.nav.min.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>
+<div id="app">
+    <!-- 头部 -->
+    <header>
+        <!-- navbar-fixed-top 固定在顶部 -->
+        <nav class="navbar navbar-default inavbar-default navbar-fixed-top">
+            <div class="container-fluid icontainer-fluid container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header inavbar-header">
+                    <!-- data-toggle="collapse" -->
+                    <button type="button" class="navbar-toggle collapsed icollapsed MenuToggle"
+                            data-target="#bs-example-navbar-collapse-1"
+                            aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- logo -->
+                    <a class="logo_a" href="/">
+                        <img class="inavbar-brand" src="img/logo4.png" alt="">
+                        <b>很方</b>
+                    </a>
+
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse  navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-right: 50px;">
+
+                    <ul class="nav navbar-nav  navbar-right">
+                        <li v-if="user.head === undefined">
+                            <a href="login.html">登录</a>
+                        </li>
+
+                        <li class="dropdown" v-show="user.head != undefined"
+                            style="margin-right: -20px;margin-left: 10px;">
+                            <!-- 通过data-delay设置下拉框消失的时间 -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                               data-delay="50" role="button" aria-haspopup="true" aria-expanded="false"
+                               style="padding: 5px 0 2px 5px;">
+                                <img :src="user.head" alt="头像" height="40" width="40" style="border-radius: 2em;">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu idropdown-menu" style="margin-right: -104px;margin-top: 5px;">
+                                <li><a href="personal.html"><span class="glyphicon glyphicon-user"></span> 我的主页</a></li>
+                                <li><a href="personal.html#col"><span class="glyphicon glyphicon-list-alt"></span>收藏的文章</a></li>
+                                <li><a href="personal.html#art"><span class="glyphicon glyphicon-copyright-mark"></span>我的文章</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#" @click.prevent="exit"><span class="glyphicon glyphicon-log-out"></span>退出</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- <li><a href="#">注册</a></li> -->
+                    </ul>
+
+
+                    <form class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="站内搜索">
+                        </div>
+                        <button type="submit" class="btn btn-default  glyphicon glyphicon-search"></button>
+                    </form>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> 首页 </a></li>
+                        <li><a href="articleeditor.html" target="_blank">写文章</a></li>
+                        <li><a href="#">Link1</a></li>
+                        <li><a href="#">Link2</a></li>
+<!--                        <li class="dropdown">-->
+<!--                            &lt;!&ndash; 通过data-delay设置下拉框消失的时间 &ndash;&gt;-->
+<!--                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"-->
+<!--                               data-delay="50" role="button" aria-haspopup="true" aria-expanded="false">-->
+<!--                                下拉-->
+<!--                                <span class="caret"></span>-->
+<!--                            </a>-->
+<!--                            <ul class="dropdown-menu">-->
+<!--                                <li><a href="#">Action</a></li>-->
+<!--                                <li><a href="#">Another action</a></li>-->
+<!--                                <li><a href="#">Something else here</a></li>-->
+<!--                                <li role="separator" class="divider"></li>-->
+<!--                                <li><a href="#">Separated link</a></li>-->
+<!--                                <li role="separator" class="divider"></li>-->
+<!--                                <li><a href="#">One more separated link</a></li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
+
+                    </ul>
+
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+
+
+            <!-- 侧边栏 -->
+            <div id="sui_nav" class="sui-nav horizontal navbar-default">
+                <div class="sui-nav-wrapper nav-border nav-line">
+                    <ul>
+                        <li>
+                            <!-- logo -->
+                            <a class="logo_a" href="#">
+                                <img class="inavbar-brand" src="img/logo4.png" alt="">
+                                <b>很方</b>
+                            </a>
+                        </li>
+
+                        <li><a class="text-primary"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                        <li><a class="text-danger" href="articleeditor.html" onclick="event.stopPropagation()"><span class="glyphicon glyphicon-fire" ></span> 写文章</a></li>
+                    </ul>
+
+                    <ul class="pull-right">
+                        <!--头像-->
+                        <li v-if="user.head === undefined">
+                            <a class="text-success" onclick="event.stopPropagation()" href="login.html">登录</a>
+                        </li>
+                        <li v-else>
+                            <img :src="user.head" alt="头像" height="45" width="45"
+                                 style="border-radius: 2em;margin-left: 20px">
+                            <span class="glyphicon glyphicon-hand-right" style="margin-left: 120px;"></span>
+                            <!--下拉-->
+                            <ul>
+                                <li><a href="personal.html" onclick="event.stopPropagation()"><span class="glyphicon glyphicon-user"></span> 我的主页</a></li>
+                                <li><a href="personal.html#col" onclick="event.stopPropagation()"><span class="glyphicon glyphicon-list-alt"></span> 收藏的文章</a></li>
+                                <li><a href="personal.html#art" onclick="event.stopPropagation()"><span class="glyphicon glyphicon-copyright-mark"></span> 我的文章</a></li>
+                                <!--                                <li><a href="#"><span class="glyphicon glyphicon-registration-mark"></span> 我是R</a></li>-->
+                                <li><a href="#" onclick="exit()" ><span class="glyphicon glyphicon-log-out"></span> 退出</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+
+        </nav>
+    </header>
+
+    <div class="per-main">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#home" data-toggle="tab">我的主页</a>
+            </li>
+            <li>
+                <a href="#arti" data-toggle="tab">我的文章</a>
+            </li>
+
+            <li>
+                <a href="#coll" data-toggle="tab">我的收藏</a>
+            </li>
+
+            <li>
+                <a href="#fans" data-toggle="tab">我的粉丝</a>
+            </li>
+            <li>
+                <a href="#atten" data-toggle="tab">我的关注</a>
+            </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <!--首页-->
+            <div class="tab-pane fade in active" id="home">
+                <form action="" class="modata">
+                <div class="card-content">
+                    <span id="preview">
+                        <img :src="user.head" alt="头像" title="头像" class="tx">
+                    </span>
+                     <br> <input type="file"  @change="getFile($event)" onchange="uploadImg(this,'preview')"   name="file" id="file" style=" margin-left: 100px;">
+                    <hr>
+                    <p>
+                        <i></i>用户名：<span v-text="homePage.username">pupu</span>
+                    </p>
+                    <input type="text" class="form-control" style="width: 30%;" name="username" autocomplete="off" id="username" placeholder="新用户名">
+                    <hr>
+                    <p>
+                        <i></i>邮箱：<span v-text="homePage.email">2879823308@qq.com</span>
+                    </p>
+                    <input type="text" class="form-control" style="width: 40%;margin-bottom: 5px;" autocomplete="off"  name="email" id="email" placeholder="新邮箱">
+
+                    <div id="dcode" >
+                        <input type="text" class="form-control" id="code" style="width: 15%;display: inline-block" autocomplete="off" name="code"  placeholder="验证码">
+                        <button type="button" class="btn btn-default" @click="sendMail">发送</button>
+                    </div>
+                    <div><input type="password" class="form-control" style="width: 40%;margin-bottom: 5px;" autocomplete="off"  name="rawpassword" id="rawpassword" placeholder="原密码"></div>
+                    <input type="password" class="form-control" style="width: 40%;margin-bottom: 5px;" autocomplete="off"  name="password" id="password" placeholder="新密码">
+                    <hr>
+                    <p><i></i>注册时间：<span v-text="formatDate(homePage.registration)">2020-03-20 11:35:34</span></p>
+                    <hr>
+                    <p>粉丝：<span v-text="homePage.fansCount" class="badge"></span>&nbsp;|&nbsp;关注：<span
+                            v-text="homePage.payCount" class="badge"></span></p>
+                    <hr>
+                    <p><i></i>共发表：<span v-text="homePage.articleCount" class="badge"></span>&nbsp;篇文章</p>
+                    <hr>
+                    <p><i></i>收藏了：<span v-text="homePage.collectCount" class="badge">10</span>&nbsp;篇文章</p>
+                    <hr>
+                    <p>您已陪伴本站：<span v-text="getDistanceSpecifiedTime(homePage.registration)"></span>  </p>
+                    <button type="button" style="float: right;" @click="updatemeans" class="btn btn-default">修改资料</button>
+                    <input type="submit" id="submit" class="btn btn-success" value="提交" style="float: right;margin-right: 10px;">
+<!--                    <button @click="submitForm($event)">提交</button>-->
+                </div>
+                </form>
+            </div>
+            <!--我的文章-->
+            <div class="tab-pane fade" id="arti">
+                <br>
+                <div class="media imedia" v-for="article in pageResult.items" :key="article.aid">
+                    <div class="media-body" style="position: relative">
+                        <a :href="joint(article.aid)" target="_blank"><h4 class="media-heading"><b
+                                v-text="article.title">标题</b></h4></a>
+                        <p v-text="article.describe">
+                            这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。</p>
+                        <br v-if="article.describe == undefined || article.describe.length==0">
+                        <span class="span_a"><i class="glyphicon glyphicon-time"></i><span
+                                v-text="formatDate(article.releasetime)">2020-03-21 17:04:50</span> </span>
+                        <span class="span_b"><i class="glyphicon glyphicon-eye-open"></i><span
+                                v-text="article.pageview">1亿</span></span>
+                        <p style="position: absolute;right: 100px;bottom: -5px;" class="cz">
+                            <a :href="reviseanessay(article.aid)"><button type="button" class="btn btn-default btn-sm" >修改</button></a>
+                            <button type="button" class="btn btn-danger btn-sm" @click="deleteArticle(article.aid)">删除
+                            </button>
+                        </p>
+
+                    </div>
+                    <div class="media-right" v-if="article.imgPath != null">
+                        <a :href="joint(article.aid)" target="_blank"><img :src="article.imgPath" class="media-object"
+                                                                           style="width:120px;height:100px;margin-top:-20px;border: 1px solid #f0f0f0;"></a>
+                    </div>
+                    <div class="media-right" style="border: none;" v-else>
+                        <div style="width:120px !important;display:inline-block;height:100px;margin-top:-20px;"></div>
+                    </div>
+                </div>
+
+                <!--分页-->
+                <div class="pagger-box pagger" id="box"></div>
+            </div>
+            <!--收藏文章-->
+            <div class="tab-pane fade" id="coll">
+                <br>
+                <!-- 右对齐 -->
+                <div class="media imedia" v-for="article in cPageResult.items" :key="article.aid">
+                    <div class="media-body" style="position: relative">
+                        <a :href="joint(article.aid)" target="_blank"><h4 class="media-heading"><b
+                                v-text="article.title">标题</b></h4></a>
+                        <p v-text="article.describe">
+                            这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。</p>
+                        <br v-if="article.describe.length==0">
+                        <span class="span_a"><i class="glyphicon glyphicon-time"></i><span
+                                v-text="formatDate(article.releasetime)">2020-03-21 17:04:50</span> </span>
+                        <span class="span_b"><i class="glyphicon glyphicon-eye-open"></i><span
+                                v-text="article.pageview">1亿</span></span>
+                        <span class="span_c" v-text="article.username">囧囧</span>
+
+                        <p style="position: absolute;right: 100px;bottom: -5px;" class="cz" >
+                            <button type="button" class="btn btn-default btn-sm" @click="collect(article.aid)">取消收藏</button>
+                        </p>
+                    </div>
+                    <div class="media-right" v-if="article.imgPath != null">
+                        <a :href="joint(article.aid)" target="_blank"><img :src="article.imgPath" class="media-object"
+                                                                           style="width:120px;height:100px;margin-top:-20px;border: 1px solid #f0f0f0;"></a>
+                    </div>
+                    <div class="media-right" style="border: none;" v-show="article.imgPath == null">
+                        <span style="width:120px;display:inline-block;height:100px;margin-top:-20px;"></span>
+                    </div>
+                </div>
+
+                <!--分页-->
+                <div class="pagger-box pagger" id="box1"></div>
+            </div>
+
+            <div class="tab-pane fade" id="fans">
+                <br>
+                <!-- 右对齐 -->
+                <div class="media imedia" v-for="user in fPageResult.items" :key="user.uid">
+                    <p><img :src="user.head" alt="" width="38" height="38" style="border: 1px solid rgb(225,225,225);">&nbsp;&nbsp;&nbsp;<span v-text="user.username"></span></p>
+                </div>
+
+                <!--分页-->
+                <div class="pagger-box pagger" id="box2"></div>
+            </div>
+
+
+            <div class="tab-pane fade" id="atten">
+                <br>
+                <!-- 右对齐 -->
+                <div class="media imedia" v-for="user in aPageResult.items" :key="user.uid">
+                    <p>
+                        <img :src="user.head" alt="" width="38" height="38" style="border: 1px solid rgb(225,225,225);">&nbsp;&nbsp;&nbsp;
+                        <span v-text="user.username"></span>
+                        <button type="button" style="float: right" class="btn btn-default btn-sm" @click="attentionTa(user.uid)">取消关注</button>
+                    </p>
+                </div>
+                <!--分页-->
+                <div class="pagger-box pagger" id="box3"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/paging.js"></script>
+
+<script>
+
+    var vueApp = new Vue({
+        el: "#app",
+        data: {
+            user: {},
+            homePage: {},
+            pageResult: {},   //我的文章
+            page: 1,
+            cPageResult: {},  //收藏
+            cpage: 1,
+            fPageResult: {},  //粉丝
+            fpage: 1,
+            aPageResult: {},  //关注
+            apage: 1,
+            meansStatus: true,
+            file: '',
+        },
+        methods: {
+            exit: function () {
+                var _this = this;
+                axios.get("user/exit").then(function (resp) {
+                    if (resp.status === 200) {
+                        location.href = "/"
+
+                    }
+                })
+            },
+            getFile: function (event) {
+                this.file = event.target.files[0];
+                console.log(this.file);
+            },
+            sendMail:function(){
+                axios.post("user/sendmail").then(function (resp) {
+                    alert("发送成功")
+                })
+            },
+            updatemeans: function(){
+                if (this.meansStatus){
+                    $("#file").css("display","inline-block");
+                    $("#username").css("display","inline-block");
+                    $("#email").css("display","inline-block");
+                    $("#dcode").css("display","block");
+                    $("#submit").css("display","inline-block");
+                    $("#rawpassword").css("display","inline-block");
+                    $("#password").css("display","inline-block");
+                    this.meansStatus = false;
+                }else{
+                    $("#file").css("display","none");
+                    $("#username").css("display","none");
+                    $("#email").css("display","none");
+                    $("#dcode").css("display","none");
+                    $("#submit").css("display","none");
+                    $("#rawpassword").css("display","none");
+                    $("#password").css("display","none");
+                    this.meansStatus = true;
+                }
+
+            },
+            formatDate: function (value) {
+                let date = new Date(value);
+                let y = date.getFullYear();
+                let MM = date.getMonth() + 1;
+                MM = MM < 10 ? ('0' + MM) : MM;
+                let d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                let h = date.getHours();
+                h = h < 10 ? ('0' + h) : h;
+                let m = date.getMinutes();
+                m = m < 10 ? ('0' + m) : m;
+                let s = date.getSeconds();
+                s = s < 10 ? ('0' + s) : s;
+                return y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s;
+            },
+
+            getDistanceSpecifiedTime: function (dateTime) {
+                // 指定日期和时间
+                var EndTime = new Date(dateTime);
+                // 当前系统时间
+                var NowTime = new Date();
+                var t = NowTime.getTime() - EndTime.getTime();
+                var d = Math.floor(t / 1000 / 60 / 60 / 24);
+                var h = Math.floor(t / 1000 / 60 / 60 % 24);
+                var m = Math.floor(t / 1000 / 60 % 60);
+                var s = Math.floor(t / 1000 % 60);
+                var html = d + " 天" + h + " 时" + m + " 分" + s + " 秒";
+                return html;
+            },
+            myarticle: function () {
+                var _this = this;
+                axios.get("article/all", {
+                    params: {
+                        'page': _this.page,
+                        'uid': _this.user.uid,
+                        'size': 6,
+                    }
+                }).then(function (resp) {
+
+                    if (resp.data == ''){
+                        box(1, 0, 0);
+                    }else{
+                        _this.pageResult = resp.data;
+                        box(_this.page, _this.pageResult.totalPage, _this.pageResult.total);
+                    }
+
+                })
+            },
+            myarticle1: function () {
+                var _this = this;
+                axios.get("collect/all", {
+                    params: {
+                        'page': _this.cpage
+                    }
+                }).then(function (resp) {
+                    if (resp.data == ''){
+                        box1(1, 0, 0);
+                    }else{
+                        _this.cPageResult = resp.data;
+                        box1(_this.cpage, _this.cPageResult.totalPage, _this.cPageResult.total);
+                    }
+                }).catch(function (error) {
+
+                })
+            },
+            myarticle2: function () {
+                var _this = this;
+                axios.get("attention/fans", {
+                    params: {
+                        'page': _this.fpage,
+                    }
+                }).then(function (resp) {
+                    if (resp.data == ''){
+                        box2(1, 0, 0);
+                    }else{
+                        _this.fPageResult = resp.data;
+                        box2(_this.fpage, _this.fPageResult.totalPage, _this.fPageResult.total);
+                    }
+
+                })
+            },
+            myarticle3: function () {
+                var _this = this;
+                axios.get("attention/concern", {
+                    params: {
+                        'page': _this.apage,
+                    }
+                }).then(function (resp) {
+                    if (resp.data == ''){
+                        box3(1, 0, 0);
+                        _this.aPageResult = {};
+                    }else{
+                        _this.aPageResult = resp.data;
+                        box3(_this.apage, _this.aPageResult.totalPage, _this.aPageResult.total);
+                    }
+
+                })
+            },
+
+            joint: function (id) {
+                return "detail.html?id=" + id;
+            },
+            deleteArticle: function (aid) {
+                var _this = this;
+                if (confirm("您确定要删除吗?")) {
+                    axios.delete("article/" + aid).then(function (resp) {
+                        if (resp.status == 200) {
+                            alert("删除成功");
+                            _this.myarticle();
+                        }
+                    })
+                }
+            },
+            collect : function (aid) {
+                var _this = this;
+                //取消收藏
+                axios.delete("collect/"+aid).then(function (resp) {
+                    alert("已取消");
+                    _this.myarticle1();
+                })
+
+            },
+            attentionTa: function(uid){
+                var _this = this;
+
+                //取消关注
+                axios.delete("attention/"+uid).then(function (value) {
+                   alert("已取消");
+                    _this.myarticle3();
+                })
+
+            },
+            reviseanessay: function(id){
+                return "reviseanessay.html?id=" + id;
+            }
+        },
+        watch: {
+            page(oldVal) {
+                this.myarticle();
+            },
+            cpage(oldVal) {
+                this.myarticle1();
+            },
+            fpage(oldVal) {
+                this.myarticle2();
+            },
+            apage(oldVal) {
+                this.myarticle3();
+            }
+        },
+        created: function () {
+            const _this = this;
+
+            axios.get("user/thelogin").then(function (value) {
+                _this.user = value.data;
+            }).catch(function (error) {
+                if (error.response.status === 400) {
+                    location.href = "login.html";
+                }
+            });
+
+            axios.get("user/homepage").then(function (value) {
+                _this.homePage = value.data;
+            })
+
+        }
+
+    });
+
+
+    // 统一处理401状态码
+    axios.interceptors.response.use((response) => {
+        return response;
+    }, function (error) {
+        if (401 === error.response.status) {
+            window.location = '/login.html';
+        } else {
+            return Promise.reject(error);
+        }
+    });
+    axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+
+
+    $(".modata").validate({
+        debug: true,
+        focusCleanup:true,
+        onfocusout : function(element) {
+            $(element).valid();
+        },
+        submitHandler: function(form){
+            // event.preventDefault();
+            let formData = new FormData();
+            formData.append('username', $("#username").val());
+            formData.append('email', $("#email").val());
+            formData.append('code', $("#code").val());
+            formData.append('rawpassword', $("#rawpassword").val());
+            formData.append('password', $("#password").val());
+            formData.append('file', vueApp.file);
+
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            axios.post("/user",formData,config).then(function (res) {
+                if (res.status == 200){
+                    alert("修改成功");
+                    location.reload();
+                }
+            })
+
+        },
+        rules : {
+            username : {
+                maxlength : 20,
+                remote : {//利用AJAX进行异步校验
+                    url :  "user/exists", //后台处理程序
+                    type : "get", //数据发送方式
+                    dataType : "json", //接受数据格式
+                    data: {
+                    }
+                }
+            },
+            email : {
+                email : true,
+                remote : {//利用AJAX进行异步校验
+                    url : "user/exists", //后台处理程序
+                    type : "get", //数据发送方式
+                    dataType : "json", //接受数据格式
+                    data: {
+                    }
+                }
+            },
+            rawpassword : {
+                minlength : 6
+            },
+            password : {
+                minlength : 6
+            }
+        },
+        messages : {
+            username : {
+                maxlength : $.validator.format("用户名不超过{0}位"),
+                remote : "用户名已使用"
+            },
+            email : {
+                email: "请输入正确的邮箱格式",
+                remote : "邮箱已被注册"
+            },
+            rawpassword : {
+                minlength : $.validator.format("原密码至少{0}位")
+            },
+            password : {
+                minlength : $.validator.format("新密码至少{0}位")
+            }
+        }
+
+
+    });
+
+
+
+    var topbar;
+    $(function () {
+        topbar = $('#sui_nav').SuiNav({});
+
+        var navbar = $('#sui_nav2').SuiNav({});
+        $('.MenuToggle').click(function () {
+            // console.log("toggle");
+            topbar.toggle();
+        });
+        $('.MenuOpen').click(function () {
+            // console.log("open");
+            topbar.show();
+        });
+
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            // console.log( $(e.target).text(),$(e.relatedTarget).text());
+            var str = $(e.target).text();
+            if (str === '我的文章') {
+                vueApp.myarticle();
+            } else if (str === '我的收藏') {
+                vueApp.myarticle1();
+            } else if (str === '我的粉丝') {
+                vueApp.myarticle2()
+            } else if (str === '我的关注') {
+                vueApp.myarticle3()
+            }
+
+        })
+
+
+    });
+
+    function box(page, totalPage, setTotalCount) {
+        $('#box').paging({
+            initPageNo: page, // 初始页码
+            totalPages: totalPage, //总页数
+            totalCount: '合计' + setTotalCount + '条数据', // 条目总数
+            slideSpeed: 600, // 缓动速度。单位毫秒
+            jump: true, //是否支持跳转
+            callback: function (page) { // 回调函数
+                vueApp.page = page;
+            }
+        })
+    };
+
+    function box1(page, totalPage, setTotalCount) {
+        $('#box1').paging({
+            initPageNo: page, // 初始页码
+            totalPages: totalPage, //总页数
+            totalCount: '合计' + setTotalCount + '条数据', // 条目总数
+            slideSpeed: 600, // 缓动速度。单位毫秒
+            jump: true, //是否支持跳转
+            callback: function (page) { // 回调函数
+                vueApp.cpage = page;
+            }
+        })
+    };
+    function box2(page, totalPage, setTotalCount) {
+        $('#box2').paging({
+            initPageNo: page, // 初始页码
+            totalPages: totalPage, //总页数
+            totalCount: '合计' + setTotalCount + '条数据', // 条目总数
+            slideSpeed: 600, // 缓动速度。单位毫秒
+            jump: true, //是否支持跳转
+            callback: function (page) { // 回调函数
+                vueApp.fpage = page;
+            }
+        })
+    };
+
+
+    function box3(page, totalPage, setTotalCount) {
+        $('#box3').paging({
+            initPageNo: page, // 初始页码
+            totalPages: totalPage, //总页数
+            totalCount: '合计' + setTotalCount + '条数据', // 条目总数
+            slideSpeed: 600, // 缓动速度。单位毫秒
+            jump: true, //是否支持跳转
+            callback: function (page) { // 回调函数
+                vueApp.apage = page;
+            }
+        })
+    };
+
+    if (location.hash == "#art"){
+        vueApp.myarticle();
+        $('#myTab li:eq(1) a').tab('show');
+    }else if (location.hash == "#col"){
+        $('#myTab li:eq(2) a').tab('show');
+        vueApp.myarticle1();
+    }
+
+
+    function exit() {
+        vueApp.exit();
+    }
+
+
+    function uploadImg(file, imgNum) {
+        var widthImg = 200; //显示图片的width
+        var heightImg = 200; //显示图片的height
+        var div = document.getElementById(imgNum);
+        if (file.files && file.files[0]) {
+            div.innerHTML = '<img id="upImg"  class="tx">'; //生成图片
+            var img = document.getElementById('upImg'); //获得用户上传的图片节点
+            img.onload = function() {
+                img.width = widthImg;
+                img.height = heightImg;
+            }
+
+            var reader = new FileReader(); //判断图片是否加载完毕
+            reader.onload = function(evt) {
+                if (reader.readyState === 2) { //加载完毕后赋值
+                    img.src = evt.target.result;
+                }
+            }
+            reader.readAsDataURL(file.files[0]);
+        }
+    }
+</script>
+
+
+</body>
+
+</html>

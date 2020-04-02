@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+			<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+			<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+			<script src="http://malsup.github.io/jquery.form.js"></script>
+
+	</head>
+	<body>
+		<form id="form" class="cmxform" id="signupForm" method="get" action="">
+		  <fieldset>
+		    <legend>验证完整的表单</legend>
+		    <p>
+		      <label for="username">用户名</label>
+		      <input id="username" name="username" type="text" required>
+		    </p>
+		    		    <p>
+		      <label for="password">密码</label>
+		      <input id="password" name="password" type="text">
+		    </p>
+		    <p>
+		      <input class="submit" type="submit" value="提交">
+		    </p>
+		</form>
+		
+		
+		
+		<script type="text/javascript">
+			/* JQuery-validate校验注册表单 */
+			$(document).ready(function() {
+				$("#form").validate({
+					focusCleanup:true,//当输入框获取焦点时,清除后面的错误信息
+					onfocusout : function(element) {//当输入框失去焦点时,进行校验
+						$(element).valid();
+					},
+					rules : {
+						phone : {
+							required : true,
+							isMobile : true,
+							remote : {//利用AJAX进行异步校验(代码简单明了很喜欢)
+								url : "checkPhone", //后台处理程序
+								type : "post", //数据发送方式
+								dataType : "json", //接受数据格式   
+								data: {
+									phone: function() {
+										return $("#phone").val();
+									}
+								}
+							}
+						},
+						password : {
+							required : true,
+							minlength : 6
+						},
+						rePassWord : {
+							required : true,
+							equalTo : "#password"
+						},
+						userName : {
+							required : true,
+							maxlength : 50
+						},
+						idNumber : {
+							required : true,
+							isIdCardNo : true
+						},
+						email : {
+							email : true
+						}
+					},
+					messages : {
+						phone : {
+							required : "请输入手机号",
+							isMobile : "请输入正确的手机号",
+							remote : "该手机已注册"
+						},
+						password : {
+							required : "请输入密码",
+							minlength : $.validator.format("至少{0}位")//可以应用这样的方式,动态读取校验规则的数据.
+						},
+						rePassWord : {
+							required : "请输入确认密码",
+							equalTo : "两次输入密码不一致"
+						},
+						userName : {
+							required : "请输入用户名",
+							maxlength : $.validator.format("用户名不超过{0}位")
+						},
+						idNumber : {
+							required : "请输入身份证号",
+							isIdCardNo : "请输入正确的身份证号"
+						},
+						email : {
+							email : "请输入正确的email地址"
+						}
+					}
+				});
+			});
+		</script>
+	
+	</body>
+

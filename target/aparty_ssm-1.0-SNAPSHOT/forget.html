@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>login</title>
+		<link rel="stylesheet" href="css/auth.css">
+		<link rel="stylesheet" href="css/login.css">
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+	</head>
+
+	<body>
+		<div class="lowin lowin-blue" id="app1">
+			<div class="lowin-brand">
+				<img src="img/logo4.png" alt="logo">
+			</div>
+			<div class="lowin-wrapper">
+				<div class="lowin-box lowin-login">
+					<div class="lowin-box-inner">
+						<form class="forget">
+							<p>密码找回</p>
+							<div class="lowin-group">
+								<label>Email</label>
+								<input type="email" id="email" autocomplete="email" name="email" class="lowin-input">
+							</div>
+
+							<button class="lowin-btn login-btn">
+								确定
+							</button>
+
+							<div class="text-foot">
+								 <a href="index.html" class="register-link">去首页</a>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+
+			<footer class="lowin-footer">
+
+			</footer>
+		</div>
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+		<script src="js/auth.js"></script>
+		<script src="js/uuid.js"></script>
+		<script>
+			const url = "http://127.0.0.1:8080/";
+
+
+			function frget(){
+				$(".forget").validate({
+					debug: true, //取消submit的默认提交功能   
+					focusCleanup:true,//当输入框获取焦点时,清除后面的错误信息
+					onfocusout : function(element) {//当输入框失去焦点时,进行校验
+						$(element).valid();
+					},
+					// 当校验全部通过会调用此方法
+					submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form   
+				
+						$.post('user/forget',{"email":$("#email").val()}, function (data, textStatus, xhr) {
+							if (xhr.status == 200){
+								alert("找回密码邮件，已发送至你的邮箱，注意查收");
+								location.href = "/"
+							}
+						});
+									 
+					},
+					rules : {
+						email : {
+							required : true,
+							email : true,
+						},
+						
+					},
+					messages : {
+						email : {
+							required : "邮箱不能为空",
+							email: "请输入正确的邮箱格式",
+						}
+						
+					}
+				});
+			}
+
+
+			$(function(){
+				frget();
+
+				
+			})
+			
+		</script>
+	</body>
+</html>

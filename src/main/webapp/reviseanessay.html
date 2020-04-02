@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <title>Simple example - Editor.md examples</title>
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/editormd.css" />
+        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+        <link href="css/Fliter.css" rel="stylesheet" />
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/Filter.js"></script>
+    </head>
+    <style>
+        header{
+            width: 90%;
+            margin: 10px auto;
+            margin-bottom: 30px;
+        }
+        header input {
+            width: 40%;
+            vertical-align:middle;
+            height: 30px;
+            outline: none;
+            padding: 0 10px 0 10px;
+            border: none;
+            border-bottom: 1px solid rgb(221, 221, 221);
+            font-size: 16px;
+        }
+        header label {
+            margin-right: 25px;
+            font-size: 18px;
+        }
+
+        #describe {
+            margin-left: 80px;
+        }
+        .iDismissal-Alerts {
+            width: 260px;
+            float: right;
+            right: 20px;
+            position: absolute;
+          z-index: 999;
+        }
+
+    </style>
+
+    <body>
+
+    <div id="layout">
+            <form name="mdEditorForm" class="art">
+                <header>
+                    <h2>文章编辑</h2>
+                    <div class="fl">
+                        <h4>分类</h4>
+                        <div id="Multiple"></div>
+                        <input id="Multiple_value" type="hidden" name="lable_id" value="">
+                        <input type="hidden" name="aid" id="aid">
+                    </div>
+
+                    <label for="title">标题：</label><input name="title" id="title" type="text" autocomplete="off" maxlength="28" minlength="2">
+                    <div>
+                        <input name="describe" name="describe"  placeholder="文章描述~" id="describe" type="text" autocomplete="off">
+                    </div>
+                    <input type="hidden" name="tag" id="tag" >
+
+                </header>
+
+
+                <!--正文部分-->
+                <div id="test-editormd">
+                    <textarea style="display:none;" name="content"></textarea>
+                </div>
+
+            </form>
+
+    </div>
+
+        <script src="js/editormd.min.js"></script>
+        <script src="js/uuid.js"></script>
+
+        <script type="text/javascript">
+
+            // 唯一标识
+            var tag;
+			var testEditor;
+
+            // 分类数据
+            var data,lid;
+
+            $(function() {
+
+
+
+                // Emoji graphics files url path
+                editormd.emoji     = {
+                    path  : "./images/emoji/",
+                    ext   : ".png"
+                };
+
+                // Twitter Emoji (Twemoji)  graphics files url path
+                editormd.twemoji = {
+                    path : "http://twemoji.maxcdn.com/72x72/",
+                    ext  : ".png"
+                };
+
+                testEditor = editormd("test-editormd", {
+                    width   : "90%", //初始化大小
+                    height  : 720,
+                    syncScrolling : "single",
+                    placeholder:'开始你的编写之旅~',  //自定义提示信息
+                    tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+                    flowChart : true,             // 开启流程图支持，默认关闭
+                    sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
+                    emoji : true,       // 支持Github颜文字，Twitter颜文字
+                    taskList : true,
+                    imageUpload : true, // 开启本地上传
+                    imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"], //上传后缀
+                    imageUploadURL : "/article/upload?tag="+tag, //上传到哪
+                    // saveHTMLToTextarea : true,//注意3：这个配置，方便post提交表单
+                    path    : "lib/", //lib文件所在
+                    /**下述为新增*/
+                    /*指定需要显示的功能按钮*/
+                    toolbarIcons : function() {
+                        return ["undo", "redo", "|","bold", "italic","ucwords","uppercase","lowercase","|","h1","h2","h3","h4","h5","h6","|","list-ul","list-ol","table","datetime","hr" ,"emoji","image","code-block","||",  "watch", "fullscreen", "preview", "releaseIcon", "index"]
+                    },
+
+                    /*自定义功能按钮:一个是发布，一个是返回首页*/
+                    toolbarIconTexts : {
+                        releaseIcon : "<span bgcolor=\"gray\">修改</span>",
+                        index : "<span bgcolor=\"red\">返回</span>",
+                    },
+                    /*给自定义按钮指定回调函数*/
+                    toolbarHandlers:{
+                        releaseIcon : function(cm, icon, cursor, selection) {
+                            // console.log(testEditor.getMarkdown());
+                            // console.log("日志输出 testIcon =>", this, cm, icon, cursor, selection);
+
+                            $.ajax({
+                                type: 'PUT',
+                                url: 'article/' + getUrlParam('id'),
+                                data: $(".art").serialize(),
+                                success: function (data) {
+                                    alert("修改成功");
+                                    history.go(-1);
+                                },
+                                error: function (data) {
+
+                                }
+
+                                }
+                            );
+                            //
+                            // $.put('article/'+getUrlParam('id'), $(".art").serialize(), function (data, textStatus, xhr) {
+                            //
+                            //
+                            // });
+                        },
+                        index : function(){
+                            let r = confirm("确定返回吗,当前文章不会进行任何保存");
+                            if (r){
+                                history.go(-1);
+                            }
+
+                        },
+                    },
+                    onload : function() {
+                        $.get("/label",function (resp) {
+                            // console.log(resp)
+                            data = resp;
+                        });
+
+                        $.get("/user/thelogin",function (resp) {
+                            console.log(resp);
+                        }).error(function (error) {
+                            alert("暂未登录")
+                        });
+
+                        $.get("article/revamp/"+getUrlParam("id"),function (resp) {
+                           console.log(resp,"=========");
+                            $("#test-editormd textarea").val(resp.content);
+                            tag = resp.tag;
+                            $("#tag").val(tag);
+                            $("#aid").val(resp.aid);
+                            $("#title").val(resp.title);
+                            $("#describe").val(resp.describe);
+                            $("#Multiple_value").val(resp.lable_id);
+                            a(resp.lable_id);
+                        });
+
+                    }
+
+                });
+
+                //读取剪切板
+                $("#test-editormd").on('paste', function (ev) {
+                    var topicCode = $("#topicCode").val();
+                    //详细可查看clipboardData属性的使用方式
+                    var data = (ev.clipboardData || ev.originalEvent.clipboardData);
+                    var items1 = data.items;
+                    console.log(items1);//输出 DataTransferItem对象
+                    var imageFile;
+                    for(var index in items1){
+                        var item = items1[index];
+                        //如果kind是file，可以用getAsFile()方法获取到文件
+                        if (item.kind === 'file') {
+                            imageFile = item.getAsFile();
+                            // console.log('获取到剪贴板的文件' + item.kind);
+                            break;
+                        }else if(item.kind === 'string'){
+                            // console.log('获取到剪贴板的字符串' + item.kind);
+                        }
+                    }
+
+                    //执行上传
+                    uploadTrigger(imageFile,topicCode);
+                });
+
+
+
+            }); // end
+
+
+            //执行上传
+            function uploadTrigger(imageFile,topicCode){
+                //topicCode为文章代码，需要在关联图片，从而实现预览时准确加载到图片
+                var url = "/article/upload?tag="+tag;
+                var formdata = new FormData();
+                formdata.append("editormd-image-file", imageFile);
+
+                $.ajax({
+                    url: url,
+                    type: "post",
+                    data: formdata,
+                    //关闭序列化
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        //data为后台返回的retMap数据
+                        if(data.success == 1){
+                            //向markdown区域插入该格式的值，从而实现图片在右侧显示
+                            testEditor.insertValue("\n![ ](" + data.url + ")");
+                        } else {
+                            console.log(data.msg);
+                        }
+                    },
+                    error : function(data){
+
+                    }
+                });
+            }
+
+            function a(id){
+                $('#Multiple').comboboxfilter({
+                    url: '',
+                    scope: 'FilterQuery1',
+                    data:data,
+                    onChange:function(newValue){
+                        $(".dclear ").parent().parent().remove();
+
+                        $(".sclear").removeClass('selected');
+
+                        $('#Multiple_value').val(newValue.split(',')[0]);
+                    },
+                    onLoadSuccess: function (data) {
+                        // alert("xing");
+                       $(".list li a").each(function(i,v){
+                           if ($(v).attr("data-value") == id){
+                               $(v).addClass("selected sclear");
+                               var html = '<li class="filter-query-clear "><a class="J_FilterQueryClear" href="javascript:;">全部清除</a></li><li data-type="ParentCatelog" class="selected-tag"><a href="javascript:;">'+$(v).text()+'<i class="J_FilterQueryDel dclear" data-type="ParentCatelog" data-value="'+id+'" ></i></a></li>';
+                               $(".selected-query .list").html(html);
+
+                               $(".dclear").click(function () {
+                                    var id = $(this).attr('data-value');
+                                   $(this).parent().parent().remove();
+
+                                   $(".list li a").each(function(i,v){
+                                       if ($(v).attr("data-value") == id){
+                                           $(v).removeClass("selected");
+                                       }
+                                   });
+                                   $('#Multiple_value').val("");
+
+                               })
+
+                           }
+
+                       })
+
+                    }
+                });
+            }
+
+
+            //获取地址栏参数方法
+            function getUrlParam(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+                if (r != null) return unescape(r[2]); return null; //返回参数值
+            }
+
+            
+        </script>
+
+    </body>
+</html>

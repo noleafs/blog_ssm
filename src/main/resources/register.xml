@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:task="http://www.springframework.org/schema/task" xmlns="http://www.springframework.org/schema/beans"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--配置需要登录的url-->
+    <util:list id="interview">
+        <value>/collect</value>
+        <value>/collect/all</value>
+        <value>/attention</value>
+        <value>/attention/fans</value>
+        <value>/attention/concern</value>
+        <value>/user/homepage</value>
+        <value>/user/sendMail</value>
+        <value>/user</value>
+        <value>/comment</value>
+        <value>/article/upload</value>
+        <value>/article</value>
+    </util:list>
+
+
+    <!-- 访问这些需要管理员或者站长-->
+    <util:list id="adminInterview">
+        <value>/user/admin/thelogin</value>
+        <value>/user/admin/all</value>
+    </util:list>
+
+<!--    &lt;!&ndash;这些只能站长操作&ndash;&gt;-->
+<!--    <util:list id="etcInterview">-->
+<!--        <value></value>-->
+
+<!--    </util:list>-->
+
+</beans>

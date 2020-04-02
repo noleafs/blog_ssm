@@ -1,0 +1,483 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Table Layout - srtdash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
+    <link rel="stylesheet" href="../css/admin/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/admin/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/admin/themify-icons.css">
+    <link rel="stylesheet" href="../css/admin/metisMenu.css">
+    <link rel="stylesheet" href="../css/admin/owl.carousel.min.css">
+    <link rel="stylesheet" href="../css/admin/slicknav.min.css">
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <!-- others css -->
+    <link rel="stylesheet" href="../css/admin/typography.css">
+    <link rel="stylesheet" href="../css/admin/default-css.css">
+    <link rel="stylesheet" href="../css/admin/styles.css">
+    <link rel="stylesheet" href="../css/admin/responsive.css">
+    <!-- modernizr css -->
+    <script src="../js/admin/modernizr-2.8.3.min.js"></script>
+
+    <link rel="stylesheet" href="../css/paging.css">
+    <link rel="stylesheet" href="../css/admin/usercontrol.css">
+</head>
+
+<body>
+    <div id="app">
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+        <!-- sidebar menu area start -->
+        <div class="sidebar-menu">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <a href="index.html"><img src="../images/logo4.png" alt="logo"></a>
+                </div>
+            </div>
+            <div class="main-menu">
+                <div class="menu-inner">
+                    <nav>
+                        <ul class="metismenu" id="menu">
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>后台主页</span></a>
+                                <ul class="collapse">
+                                    <li><a href="index.html">服务器信息</a></li>
+                                </ul>
+                            </li>
+                            <li class="active">
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-user"></i>
+                                    <span>用户管理</span></a>
+                                <ul class="collapse">
+<!--                                    <li><a href="table-basic.html">basic table</a></li>-->
+                                    <li class="active"><a href="usercontrol.html">用户列表</a></li>
+<!--                                    <li><a href="datatable.html">datatable</a></li>-->
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-brush"></i>
+                                    <span>文章管理</span></a>
+                                <ul class="collapse">
+                                    <li><a href="articlemanager.html">文章列表</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-bookmark"></i>
+                                    <span>标签管理</span></a>
+                                <ul class="collapse">
+                                    <li><a href="labelmanagement.html">标签列表</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- sidebar menu area end -->
+        <!-- main content area start -->
+        <div class="main-content">
+            <!-- header area start -->
+            <div class="header-area">
+                <div class="row align-items-center">
+                    <!-- nav and search button -->
+                    <div class="col-md-6 col-sm-8 clearfix">
+                        <div class="nav-btn pull-left">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                    </div>
+                    <!-- profile info & task notification -->
+                    <div class="col-md-6 col-sm-4 clearfix">
+                        <ul class="notification-area pull-right">
+                            <li id="full-view"><i class="ti-fullscreen"></i></li>
+                            <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="app">
+                <!-- header area end -->
+                <!-- page title area start -->
+                <div class="page-title-area">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <div class="breadcrumbs-area clearfix">
+                                <h4 class="page-title pull-left">后台管理</h4>
+                                <ul class="breadcrumbs pull-left">
+                                    <li><a href="index.html">首页</a></li>
+                                    <li><span>用户管理</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--账户-->
+                        <div class="col-sm-6 clearfix">
+                            <div class="user-profile pull-right">
+                                <img class="avatar user-thumb" :src="user.head" alt="avatar">
+                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown"  v-text="user.username">  <i class="fa fa-angle-down"></i></h4>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" @click="exit">登出</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- page title area end -->
+                <div class="main-content-inner">
+                    <div class="row">
+                        <!-- basic table start -->
+                        <div class="col-lg-12 mt-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title"style="display: inline-block;">用户</h4>
+
+                                    <div class="search-box pull-left" style="float: right;margin-bottom: 15px;margin-right: 20px;">
+                                        <form action="#" >
+                                            <input type="text" name="search" id="search"  placeholder="Search..." required @keydown.enter.prevent="search"  >
+                                            <i class="ti-search"></i>
+                                        </form>
+                                    </div>
+
+                                    <div class="single-table">
+                                        <div class="table-responsive">
+                                            <table class="table text-center">
+                                                <thead class="text-uppercase">
+                                                    <tr>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">用户名</th>
+                                                        <th scope="col">密码</th>
+                                                        <th scope="col">邮箱</th>
+                                                        <th scope="col">头像路径</th>
+                                                        <th scope="col">注册时间</th>
+                                                        <th scope="col">是否激活</th>
+                                                        <th scope="col">角色</th>
+                                                        <th scope="col">操作</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="(user,i) in userList.items" :key="user.uid">
+                                                        <th scope="row" v-text="i+1">1</th>
+                                                        <td v-text="user.username">Mark</td>
+                                                        <td v-text="user.password">123456</td>
+                                                        <td v-text="user.email">2879823308@qq.com</td>
+                                                        <td v-text="user.head">/head/1.jpg</td>
+                                                        <td v-text="formatDate(user.registration)">09 / 07 / 2018</td>
+                                                        <td v-text="user.activate == 1? '是' : '否'">是</td>
+                                                        <td v-text="user.role_id == 1? '站长' : user.role_id == 2 ? '管理员' : '用户' ">管理员</td>
+                                                        <td><i class="fa fa-edit" @click="updateUser(user.uid)"></i><i class="ti-trash" @click="deleteUser(user.uid)"></i></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <!--分页-->
+                                            <div class="pagger-box pagger" id="box"></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--修改表单-->
+                <div class="col-lg-12 col-ml-12 updateForm">
+                    <div class="row">
+                        <!-- basic form start -->
+                        <div class="col-12 mt-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">修改</h4>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="Username">username</label>
+                                            <input type="text" class="form-control" id="Username"  name="username" placeholder="Username" v-model="aboutUser.username">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">email</label>
+                                            <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email" v-model="aboutUser.email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">password</label>
+                                            <input type="text" class="form-control" id="exampleInputPassword1" maxlength="20" placeholder="Password" v-model="aboutUser.password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="activate">activate</label>
+                                            <input type="text" class="form-control" id="activate" name="activate" placeholder="是否激活，0或1" v-model="aboutUser.activate">
+                                        </div>
+                                        <div class="form-group" v-if="user.role_id == 1">
+                                            <label for="role">角色</label> <br>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<select name="role" id="role" v-model="aboutUser.role_id">
+                                                <option :value="role.rid"   v-for="role in roleList" v-text="role.role_name" v-if="role.rid == aboutUser.role_id ? 'selected' : ''" ></option>
+                                                <option :value="role.rid"    v-text="role.role_name" v-else ></option>
+                                            </select>
+                                        </div>
+                                        <button style="float: right"  class="btn btn-primary mt-4 pr-4 pl-4"  @click.prevent="cancel">取消</button>
+                                        <button style="float: right;margin-right: 5px;" type="submit" @click.prevent="submit" class="btn btn-primary mt-4 pr-4 pl-4">提交</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- main content area end -->
+        <!-- footer area start-->
+        <footer>
+            <div class="footer-area">
+<!--                <p>© Copyright 2018. All right reserved. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
+            </div>
+        </footer>
+        <!-- footer area end-->
+    </div>
+
+
+    </div>
+    <!-- offset area end -->
+    <!-- jquery latest version -->
+    <script src="../js/jquery.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="../js/admin/popper.min.js"></script>
+    <script src="../js/admin/bootstrap.min.js"></script>
+    <script src="../js/admin/owl.carousel.min.js"></script>
+    <script src="../js/admin/metisMenu.min.js"></script>
+    <script src="../js/admin/jquery.slimscroll.min.js"></script>
+    <script src="../js/admin/jquery.slicknav.min.js"></script>
+
+    <!-- others plugins -->
+    <script src="../js/admin/plugins.js"></script>
+    <script src="../js/admin/scripts.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <script src="../js/paging.js"></script>
+
+
+<!--    <style>-->
+<!--        a{-->
+<!--            display: block ;-->
+<!--        }-->
+<!--    </style>-->
+
+    <script>
+        $(function () {
+            var vueApp = new Vue({
+                el: ".app",
+                data: {
+                    user: {
+                        username: "tanyun",
+                    },
+                    userList: [],
+                    page: 1,
+                    aboutUser: {
+                        activate: 1,
+                        email: "780771603@qq.com",
+                        head: "group1/M00/00/00/wKiIkV6B9KKAM0LfAAD6188QrfY635.jpg",
+                        password: "c7e37e23cb723aef519723a1959e095f",
+                        registration: 1584675334026,
+                        role_id: 3,
+                        uid: 24,
+                        username: "大大"
+                    },
+                    roleList:[],
+
+
+                },
+                methods: {
+                    formatDate: function(value) {
+                        let date = new Date(value);
+                        let y = date.getFullYear();
+                        let MM = date.getMonth() + 1;
+                        MM = MM < 10 ? ('0' + MM) : MM;
+                        let d = date.getDate();
+                        d = d < 10 ? ('0' + d) : d;
+                        let h = date.getHours();
+                        h = h < 10 ? ('0' + h) : h;
+                        let m = date.getMinutes();
+                        m = m < 10 ? ('0' + m) : m;
+                        let s = date.getSeconds();
+                        s = s < 10 ? ('0' + s) : s;
+                        return y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s;
+                    },
+                    all: function () {
+                        var _this = this;
+                        /*所有用户数据*/
+                        axios.get("/user/admin/all?page="+_this.page + (_this.isNull($("#search").val()) ? '' : '&q='+$("#search").val())).then(function (value) {
+                            _this.userList = value.data;
+
+                            box(_this.page,_this.userList.totalPage,_this.userList.total);
+                        }).catch(function (error) {
+                            errorHandling(error);
+                        });
+                    },
+                    exit: function () {
+                        var _this = this;
+                        axios.get("/user/exit").then(function (resp) {
+                            if (resp.status === 200) {
+                                location.href = "login.html"
+                            }
+                        })
+                    },
+                    deleteUser: function (id) {
+                        var _this = this;
+                        var u ;
+                        this.userList.items.forEach(function (user) {
+                            if (user.uid === id){
+                               u = user;
+                               return;
+                            }
+                        });
+
+                        if (_this.user.role_id >= u.role_id){
+                            alert("权限不足，你只能操作比你角色低的用户");
+                            return ;
+                        }
+
+                        if (confirm("大人，确认要删除吗 三思而后行啊")) {
+                            axios.delete("/user/admin/"+id).then(function (resp) {
+                                _this.all();
+                            }).catch(function (error) {
+                                if (error.response.status == 403){
+                                    alert("你无法删除站长");
+                                }
+                            })
+                        }
+                    },
+                    updateUser: function(id){
+                        var _this = this;
+
+                        this.userList.items.forEach(function (user) {
+                            console.log(user);
+                            if (user.uid === id){
+                                //相当于深拷贝
+                                var u = JSON.parse(JSON.stringify(user));
+                                u.password = "";
+                                _this.aboutUser = u;
+                            }
+
+                        });
+                        if (this.aboutUser.role_id <= this.user.role_id){
+                            alert("权限不足，你只能操作比你角色低的用户");
+                            return;
+                        }
+
+                        $(".main-content-inner").css("display","none");
+                        $(".updateForm").css("display","block");
+
+                    },
+                    cancel: function () {
+                        $(".updateForm").css("display","none");
+                        $(".main-content-inner").css("display","block");
+                    },
+                    submit: function () {
+                        var _this = this;
+                        axios.put("/user/admin/"+_this.aboutUser.uid,_this.aboutUser).then(function (resp) {
+                            _this.cancel();
+                            _this.all();
+                        }).catch(function (error) {
+
+                        })
+                    },
+                    isNull: function(str){
+                        if ( str == "" ) return true;
+                        var regu = "^[ ]+$";
+                        var re = new RegExp(regu);
+                        return re.test(str);
+                    }
+                    ,
+                    search: function () {
+                       var sear = $("#search").val();
+                      if ( sear != null && !this.isNull(sear)) {
+                         // 发起查询
+                          this.all();
+                      }else{
+                          this.all();
+                      }
+
+                    }
+
+                },
+                watch: {
+                    page: function () {
+                        this.all();
+                    }
+                },
+                created: function () {
+                    var _this = this;
+                    /*是否登录*/
+                    axios.get("/user/admin/thelogin").then(function (value) {
+                        _this.user = value.data;
+                    }).catch(function (error) {
+                        errorHandling(error);
+                    });
+
+                    this.all();
+
+                    axios.get("/role/admin/all").then(function (value) {
+                        _this.roleList = value.data;
+                    }).catch(function (error) {
+                        errorHandling(error);
+                    });
+
+                }
+            });
+
+
+            //处理401 和 403
+            function errorHandling(error) {
+                if (error.response.status === 401) {
+                    location.href = "login.html";
+                }else if(error.response.status === 403){
+                    location.href = "403.html";
+                }
+            }
+
+            function box(page, totalPage, setTotalCount) {
+                $('#box').paging({
+                    initPageNo: page, // 初始页码
+                    totalPages: totalPage, //总页数
+                    totalCount: '合计' + setTotalCount + '条数据', // 条目总数
+                    slideSpeed: 600, // 缓动速度。单位毫秒
+                    jump: true, //是否支持跳转
+                    callback: function (page) { // 回调函数
+                        vueApp.page = page;
+                    }
+                })
+            };
+
+            // // 统一处理401状态码
+            // axios.interceptors.response.use((response) => {
+            //     return response;
+            //    }, function (error) {
+            //     if (401 === error.response.status) {
+            //         window.location = '/login.html';
+            //     } else {
+            //         return Promise.reject(error);
+            //     }
+            // });
+            // axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+        });
+
+    </script>
+
+</body>
+
+</html>

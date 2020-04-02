@@ -1,0 +1,18 @@
+.sub-main {
+    width: 50%;
+    margin: 80px auto;
+}
+
+/* 会执行多个媒体查询 */
+@media (max-width: 1300px) {
+    .sub-main{
+        width: 60%;
+    }
+}
+
+/* 会执行多个媒体查询 */
+@media (max-width: 620px) {
+    .sub-main{
+        width: 90%;
+    }
+}

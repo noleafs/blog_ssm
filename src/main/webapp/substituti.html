@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <!-- 强制让文档的宽度与设备的宽度保持1:1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="java,java博客,java学习,个人博客">
+    <meta name="description" content="java,java博客,java学习,个人博客">
+
+    <link rel="stylesheet" type="text/css" href="css/sui.nav.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/substituti.css">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
+
+
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap-hover-dropdown/2.0.10/bootstrap-hover-dropdown.min.js"></script>
+    <script src="js/sui.nav.min.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>
+<div id="app">
+    <!-- 头部 -->
+    <header>
+        <!-- navbar-fixed-top 固定在顶部 -->
+        <nav class="navbar navbar-default inavbar-default navbar-fixed-top">
+            <div class="container-fluid icontainer-fluid container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header inavbar-header">
+                    <!-- data-toggle="collapse" -->
+                    <button type="button" class="navbar-toggle collapsed icollapsed MenuToggle"
+                            data-target="#bs-example-navbar-collapse-1"
+                            aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- logo -->
+                    <a class="logo_a" href="/">
+                        <img class="inavbar-brand" src="img/logo4.png" alt="">
+                        <b>很方</b>
+                    </a>
+
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse  navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-right: 50px;">
+
+                    <ul class="nav navbar-nav  navbar-right">
+                        <li v-if="user.head === undefined">
+                            <a href="login.html">登录</a>
+                        </li>
+
+                        <li class="dropdown" v-show="user.head != undefined"
+                            style="margin-right: -20px;margin-left: 10px;">
+                            <!-- 通过data-delay设置下拉框消失的时间 -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                               data-delay="50" role="button" aria-haspopup="true" aria-expanded="false"
+                               style="padding: 5px 3px 5px 5px;">
+                                <img :src="user.head" alt="头像" height="40" width="40" style="border-radius: 2em;">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu idropdown-menu" style="margin-right: -104px;margin-top: 5px;">
+                                <li><a href="personal.html"><span class="glyphicon glyphicon-user"></span> 我的主页</a></li>
+                                <li><a href="personal.html#col"><span class="glyphicon glyphicon-list-alt"></span>收藏的文章</a></li>
+                                <li><a href="personal.html#art"><span class="glyphicon glyphicon-copyright-mark"></span>我的文章</a></li>
+                                <li role="separator" class="divider"></li>
+<!--                                <li><a href="#"><span class="glyphicon glyphicon-registration-mark"></span>我是R</a></li>-->
+<!--                                <li role="separator" class="divider"></li>-->
+                                <li><a href="#" @click.prevent="exit"><span class="glyphicon glyphicon-log-out"></span>退出</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- <li><a href="#">注册</a></li> -->
+                    </ul>
+
+
+                    <form class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input type="text"  class="form-control" placeholder="站内搜索">
+                        </div>
+                        <button type="submit" class="btn btn-default  glyphicon glyphicon-search" @click.prevent="artiAll"></button>
+                    </form>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="#"><span class="glyphicon glyphicon-home" style="font-size: 12px;"></span> 首页 </a></li>
+                        <li><a href="articleeditor.html" target="_blank">
+                            <span class="glyphicon glyphicon-pencil" style="font-size: 12px;"></span>
+                            写文章</a></li>
+                        <li><a href="#">Link1</a></li>
+                        <li><a href="#">Link2</a></li>
+
+
+                    </ul>
+
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+
+
+            <!-- 侧边栏 -->
+            <div id="sui_nav" class="sui-nav horizontal navbar-default">
+                <div class="sui-nav-wrapper nav-border nav-line">
+                    <ul>
+                        <li>
+                            <!-- logo -->
+                            <a class="logo_a" href="#">
+                                <img class="inavbar-brand" src="img/logo4.png" alt="">
+                                <b>很方</b>
+                            </a>
+                        </li>
+
+                        <li><a class="text-primary"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                        <li><a class="text-danger" href="articleeditor.html" onclick="event.stopPropagation()"><span class="glyphicon glyphicon-fire" ></span> 写文章</a></li>
+                    </ul>
+
+                    <ul class="pull-right">
+                        <!--头像-->
+                        <li v-if="user.head === undefined">
+                            <a class="text-success" onclick="event.stopPropagation()" href="login.html">登录</a>
+                        </li>
+                        <li v-else>
+                            <img :src="user.head" alt="头像" height="45" width="45"
+                                 style="border-radius: 2em;margin-left: 10px;">
+                            <span class="glyphicon glyphicon-hand-right" style="margin-left: 120px;"></span>
+                            <!--下拉-->
+                            <ul>
+                                <li><a href="personal.html" onclick="event.stopPropagation()"><span class="glyphicon glyphicon-user"></span> 我的主页</a></li>
+                                <li><a href="personal.html#col" onclick="event.stopPropagation()"><span class="glyphicon glyphicon-list-alt"></span> 收藏的文章</a></li>
+                                <li><a href="personal.html#art" onclick="event.stopPropagation()"><span class="glyphicon glyphicon-copyright-mark"></span> 我的文章</a></li>
+<!--                                <li><a href="#"><span class="glyphicon glyphicon-registration-mark"></span> 我是R</a></li>-->
+                                <li><a href="#" onclick="exit()" ><span class="glyphicon glyphicon-log-out"></span> 退出</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- 主体 -->
+    <section class="sub-main">
+        <!-- 左侧 -->
+        <div >
+
+            <!-- 博文 -->
+            <div style="margin-top: 20px; " class="panel panel-default">
+
+                <div class="panel-heading">
+                    <img :src="author.head" height="80" width="80" alt="头像">
+                    <div style="display: inline-block;vertical-align: middle;">
+                        <span v-text="author.username" style="font-size: 21px;font-weight: 700;"></span><br>
+                        粉丝：<span v-text="author.fansCount"></span> |
+                        关注：<span v-text="author.payCount"></span> |
+                        文章：<span v-text="author.articleCount"></span>  &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="btn btn-success" @click="attentionTa"   >关注<i v-if="attentionState" class="glyphicon glyphicon-ok"></i></button>
+                    </div>
+
+                </div>
+
+                <!-- 右对齐 -->
+                <div class="media imedia  panel-body" v-for="article in pageResult.items" :key="article.aid">
+                    <div class="media-body">
+                        <a :href="joint(article.aid)" target="_blank"><h4 class="media-heading"><b
+                                v-text="article.title">标题</b></h4></a>
+                        <p v-text="article.describe">这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。这是一些示例文本。</p>
+                        <br v-if="article.describe == undefined || article.describe.length==0" >
+                        <span class="span_a"><i class="glyphicon glyphicon-time"></i><span
+                                v-text="formatDate(article.releasetime)">2020-03-21 17:04:50</span> </span>
+                        <span class="span_b"><i class="glyphicon glyphicon-eye-open"></i><span
+                                v-text="article.pageview">1亿</span></span>
+                        <span class="span_c" v-text="article.username">囧囧</span>
+                    </div>
+                    <div class="media-right" v-if="article.imgPath != null">
+                        <a :href="joint(article.aid)" target="_blank"><img :src="article.imgPath" class="media-object" style="width:120px;height:100px;margin-top:-20px;border: 1px solid #f0f0f0;"></a>
+                    </div>
+                    <div class="media-right" style="border: none;" v-show="article.imgPath == null">
+                        <span style="width:120px;display:inline-block;height:100px;margin-top:-20px;"></span>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <p id="fl"></p>
+    </section>
+
+    <!--    右边悬浮-->
+    <div class="back-to-the-top">
+        <i class="glyphicon glyphicon-chevron-up"></i>
+        <i class="glyphicon glyphicon-chevron-down"></i>
+    </div>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js/axios.min.js"></script>
+
+<script>
+    var page = 2;
+
+    var vueApp = new Vue({
+        el: "#app",
+        data: {
+            user: {},
+            pageResult: {},
+            author: {},
+            attentionState: false,
+        },
+        watch: {
+            user(){
+                var _this = this;
+                //是否关注
+                axios.get("attention/"+getUrlParam("id")).then(function (resp) {
+                    if (resp.status === 200){
+                        _this.attentionState = true;
+                    }
+                });
+                if (getUrlParam("id") == _this.user.uid) {
+                    $(".btn-success").css("display","none");
+                }else{
+                    $(".btn-success").css("display","inline-block");
+                }
+
+            }
+        },
+        methods: {
+            exit: function () {
+                var _this = this;
+                axios.get("user/exit").then(function (resp) {
+                    if (resp.status === 200) {
+                        _this.user = {};
+                        _this.attentionState = false;
+                    }
+                })
+            },
+            formatDate: function (value) {
+                let date = new Date(value);
+                let y = date.getFullYear();
+                let MM = date.getMonth() + 1;
+                MM = MM < 10 ? ('0' + MM) : MM;
+                let d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                let h = date.getHours();
+                h = h < 10 ? ('0' + h) : h;
+                let m = date.getMinutes();
+                m = m < 10 ? ('0' + m) : m;
+                let s = date.getSeconds();
+                s = s < 10 ? ('0' + s) : s;
+                return y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s;
+            },
+            joint: function (id) {
+                return "detail.html?id=" + id;
+            },
+            artiAll: function () {
+                var _this = this;
+                page = 2;
+                /*获得全部文章*/
+                axios.get("article/all?"+'uid='+getUrlParam('id')).then(function (resp) {
+                    _this.pageResult = resp.data;
+                }).catch(function (error) {
+
+                });
+            },
+            /*关注*/
+            attentionTa: function(){
+                var _this = this;
+
+                if($.isEmptyObject(this.user)){
+                    alert("您还没有登录");
+                    return;
+                }
+
+                if (!this.attentionState){
+                    axios.post("attention",{"auid": getUrlParam("id")}).then(function (resp) {
+                        if (resp.status === 201) {
+                            _this.author.fansCount = _this.author.fansCount + 1;
+                            _this.attentionState = true;
+                        }
+                    })
+                }else{
+                    //取消关注
+                    axios.delete("attention/"+getUrlParam("id")).then(function (value) {
+                        if (  _this.author.fansCount > 0){
+                            _this.author.fansCount = _this.author.fansCount - 1;
+                        }
+                        _this.attentionState = false;
+                    })
+                }
+            },
+
+        },
+        created: function () {
+            const _this = this;
+            axios.get("user/thelogin").then(function (value) {
+                _this.user = value.data;
+            }).catch(function (error) {
+
+            });
+
+            this.artiAll();
+
+            axios.get("user/author?id="+getUrlParam("id")).then(function (value) {
+                _this.author = value.data;
+            });
+
+
+
+
+            window.onscroll = function () {
+                //变量scrollTop是滚动条滚动时，距离顶部的距离
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                //变量windowHeight是可视区的高度
+                var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+                //变量scrollHeight是滚动条的总高度
+                var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+
+                if (scrollTop + windowHeight > 1500) {
+                    $(".back-to-the-top .glyphicon-chevron-up").css("display", "block");
+                } else {
+                    $(".back-to-the-top .glyphicon-chevron-up").css("display", "none");
+                }
+
+                //滚动条到底部的条件
+                if (scrollTop + windowHeight == scrollHeight) {
+                    //写后台加载数据的函数
+                    //页码小于或者等于总页数才去查询
+                    if (page <= _this.pageResult.totalPage) {
+
+                        axios.get("article/all?page=" + page + "&uid="+getUrlParam('id')).then(function (resp) {
+                            var pageResult = _this.pageResult;
+                            pageResult.total = resp.data.total;
+                            pageResult.totalPage = resp.data.totalPage;
+                            pageResult.items = pageResult.items.concat(resp.data.items);
+                            _this.pageResult = pageResult;
+                            ++page;
+                        }).catch(function (error) {
+
+                        });
+                    }
+
+                }
+            }
+
+        }
+
+    });
+
+
+    // document.write(document.getElementById('sui_nav').innerHTML);
+    var topbar;
+    $(function () {
+
+        topbar = $('#sui_nav').SuiNav({});
+
+        var navbar = $('#sui_nav2').SuiNav({});
+        $('.MenuToggle').click(function () {
+            console.log("toggle");
+            topbar.toggle();
+        });
+        $('.MenuOpen').click(function () {
+            console.log("open");
+            topbar.show();
+        });
+
+
+    });
+
+    /* 去顶部 */
+    $('.back-to-the-top .glyphicon-chevron-up').on('click', function () {
+        $('html,body').animate({
+            scrollTop: 0
+        }, 'slow'); //缓慢动画
+    });
+
+    /* 去底部 */
+    $('.back-to-the-top .glyphicon-chevron-down').on('click', function () {
+        /* $('html,body,#box').scrollTop(9999); */
+        $('html,body').animate({
+			scrollTop: $('#fl').offset().top
+        }, 'slow');
+    });
+
+    function exit() {
+        vueApp.exit();
+    }
+    //获取地址栏参数方法
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+
+</script>
+
+
+</body>
+
+</html>
